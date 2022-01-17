@@ -1,24 +1,62 @@
-import  { serializeTokens } from './tokens'
-import { SerializedPoolConfig, PoolCategory } from './types'
+import JSBI from 'jsbi'
 
-const serializedTokens = serializeTokens()
+// exports for external consumption
+export type BigintIsh = JSBI | bigint | string
 
-const pools: SerializedPoolConfig[] = [
-  {
-    sousId: 0,
-    stakingToken: serializedTokens.silverGhost,
-    earningToken: serializedTokens.usdt,
-    contractAddress: {
-      1337: '0xA4031FfBD0A7bBfEE24679Fd3967F17FE0a05bFC',
-      97: '0xF9F384D549D1E9b895C661427ab27d4C32Db29C3',
-      56: '0x6B7858367086Be93B410ecE64C28DCCf2299ea4d',
-    },
-    poolCategory: PoolCategory.CORE,
-    harvest: true,
-    tokenPerBlock: '1',
-    sortOrder: 1,
-    isFinished: false,
-  }
-]
+export enum ChainId {
+  MAINNET = 56,
+  TESTNET = 97,
+  LOCALNET = 1337,
+}
 
-export default pools
+export enum TradeType {
+  EXACT_INPUT,
+  EXACT_OUTPUT
+}
+
+export enum Rounding {
+  ROUND_DOWN,
+  ROUND_HALF_UP,
+  ROUND_UP
+}
+
+export const CHAIN_FACTORY_ADDRESS = {
+  56:'0xC08f384fe79624b0fF6b7CeAd54F9540CC449D23',
+  97:'0xEB1B508ED37A5F8c1E6eDe2Accd7808FE7F6d89d',
+  1337:'0x092b7E0E81C8AE9ac68E2A208Ebd7305B02c2806',
+}
+
+export const CHAIN_INIT_CODE_HASH = {
+  56:'0xd508507167d80833c74a7303e14d764844bd6e183e324caf32127f9e2ae17b86',
+  97:'0xd508507167d80833c74a7303e14d764844bd6e183e324caf32127f9e2ae17b86',
+  1337:'0xd508507167d80833c74a7303e14d764844bd6e183e324caf32127f9e2ae17b86',
+}
+
+export const CHAIN_WETH_ADDRESS = {
+  56:'0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
+  97:'0xaE8E19eFB41e7b96815649A6a60785e1fbA84C1e',
+  1337:'0xde64b1B936E11f7C9C645063A23916ED193bD80f',
+}
+
+export const MINIMUM_LIQUIDITY = JSBI.BigInt(1000)
+
+// exports for internal consumption
+export const ZERO = JSBI.BigInt(0)
+export const ONE = JSBI.BigInt(1)
+export const TWO = JSBI.BigInt(2)
+export const THREE = JSBI.BigInt(3)
+export const FIVE = JSBI.BigInt(5)
+export const TEN = JSBI.BigInt(10)
+export const _100 = JSBI.BigInt(100)
+export const FEES_NUMERATOR = JSBI.BigInt(9975)
+export const FEES_DENOMINATOR = JSBI.BigInt(10000)
+
+export enum SolidityType {
+  uint8 = 'uint8',
+  uint256 = 'uint256'
+}
+
+export const SOLIDITY_TYPE_MAXIMA = {
+  [SolidityType.uint8]: JSBI.BigInt('0xff'),
+  [SolidityType.uint256]: JSBI.BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
+}

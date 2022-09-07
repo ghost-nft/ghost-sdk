@@ -9,7 +9,7 @@ export {
   CHAIN_FACTORY_ADDRESS,
   CHAIN_INIT_CODE_HASH,
   CHAIN_WETH_ADDRESS,
-  MINIMUM_LIQUIDITY,
+  MINIMUM_LIQUIDITY
 } from './constants'
 
 export * from './errors'
